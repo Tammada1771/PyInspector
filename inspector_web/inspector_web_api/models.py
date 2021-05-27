@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.db.models.fields.related import ForeignKey
 
 # Create your models here.
 class Location(models.Model):
@@ -9,19 +10,19 @@ class Location(models.Model):
 class WorkGroup(models.Model):
     Id = models.UUIDField()
     Description = models.CharField(max_length=100)
-    LocationId = models.OneToOneField(
-        Location,
-        on_delete=models.CASCADE,
-        related_name='WorkGroup'
-    )
+    LocationId = models.ForeignKey(
+        Location.Id,
+        verbose_name=("WorkGroup"),
+        on_delete=models.CASCADE
+        )   
     
 class JobTitle(models.Model):
     Id = models.UUIDField()
     Description = models.CharField(max_length=50)
-    WorkGroupId = models.OneToOneField(
-       WorkGroup,
-       on_delete=models.CASCADE,
-       related_name='JobTitle'
+    WorkGroupId = models.ForeignKey(
+        WorkGroup.Id,
+        verbose_name=('JobTitle'),
+        on_delete=models.CASCADE
     )
     
     def __str__(self):
