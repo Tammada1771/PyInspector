@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'inspector_web_api.apps.InspectorWebApiConfig',
+    'inspector_web_api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
