@@ -24,3 +24,6 @@ class JobTitle(models.Model):
        related_name='JobTitle'
     )
     
+    def __str__(self):
+        return self.Description
+    
