@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from .serializers import LocationSerializer
-from .serializers import WorkGroupSerializer
-from .serializers import JobTitleSerializer
-from .models import Location
-from .models import WorkGroup
-from .models import JobTitle
+from .serializers import LocationSerializer, WorkGroupSerializer, JobTitleSerializer, UserSerializer, RegionSerializer, SizeSerializer
+
+from .models import Location, WorkGroup, JobTitle, User, Region, Size
+
 
 # Create your views here.
 
@@ -24,3 +22,18 @@ class WorkGroupViewSet(viewsets.ModelViewSet):
 class JobTitleViewSet(viewsets.ModelViewSet):
     queryset = JobTitle.objects.all().order_by('name')
     serializer_class = JobTitleSerializer
+    
+    
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('employeeId')
+    serializer_class = UserSerializer
+
+
+class RegionViewSet(viewsets.ModelViewSet):
+    queryset = Region.objects.all().order_by('name')
+    serializer_class = RegionSerializer
+    
+    
+class SizeViewSet(viewsets.ModelViewSet):
+    queryset = Size.objects.all().order_by('name')
+    serializer_class = SizeSerializer
