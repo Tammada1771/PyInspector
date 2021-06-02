@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Alert, Battery, BatteryInspection, Building, CapacitorBank, Charger, Equipment, EquipmentType, Inspection, InspectionType, Location, MotorOperatedLoadBreak, MxOrder, MxOrderType, OilBreaker, Region, SF6Breaker, Size, Station, Stations, Status, Transformer, User, VacBreakerIndoor, VacBreakerOutdoor, VacRecloser, WorkGroup, JobTitle, Yard
+from .models import Alert, Battery, BatteryInspection, Building, CapacitorBank, Charger, Equipment, EquipmentType, Inspection, InspectionType, Location, MotorOperatedLoadBreak, MxOrder, MxOrderType, OilBreaker, Region, SF6Breaker, Size, Station, Stations, Status, Transformer, User, VacBreakerIndoor, VacBreakerOutdoor, VacRecloserSinglePhase, VacRecloserTriplePhase, WorkGroup, JobTitle, Yard
 
 admin.site.register(Location)
 admin.site.register(WorkGroup)
@@ -22,7 +22,8 @@ admin.site.register(Building)
 admin.site.register(Charger)
 admin.site.register(VacBreakerIndoor)
 admin.site.register(Yard)
-admin.site.register(VacRecloser)
+admin.site.register(VacRecloserSinglePhase)
+admin.site.register(VacRecloserTriplePhase)
 admin.site.register(SF6Breaker)
 admin.site.register(Station)
 admin.site.register(CapacitorBank)

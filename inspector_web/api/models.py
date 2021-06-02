@@ -173,6 +173,7 @@ class Equipment(models.Model):
     station = models.ForeignKey(
         Stations,
         verbose_name=('Station'),
+        related_name=('StationId'),
         on_delete=models.CASCADE
     )
     voltage = models.CharField(max_length=7)
@@ -260,7 +261,13 @@ class Battery(models.Model):
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
-    cellElectolyteLevel = models.CharField(max_length=50, null=True)
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
+    cellElectrolyteLevel = models.CharField(max_length=50, null=True)
     cellFreeLeaks = models.BooleanField(null=True)
     postStrapFreeCorro = models.BooleanField(null=True)
     overallEquipCond = models.CharField(max_length=50, null=True)
@@ -275,6 +282,12 @@ class BatteryInspection(models.Model):
     inspection = models.ForeignKey(
         Inspection,
         verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
         on_delete=models.CASCADE
     )
     tempBatRoom = models.IntegerField(null=True)
@@ -308,6 +321,12 @@ class Building(models.Model):
     inspection = models.ForeignKey(
         Inspection,
         verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
         on_delete=models.CASCADE
     )
     groundIntact = models.BooleanField(null=True)
@@ -345,6 +364,12 @@ class Charger(models.Model):
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
     volt = models.DecimalField(null=True, decimal_places=2, max_digits=5)
     amp = models.DecimalField(null=True, decimal_places=2, max_digits=5)
     noGroundPres = models.BooleanField(null=True)
@@ -360,6 +385,12 @@ class VacBreakerIndoor(models.Model):
     inspection = models.ForeignKey(
         Inspection,
         verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
         on_delete=models.CASCADE
     )
     heaterCond = models.CharField(max_length=25, null=True)
@@ -380,21 +411,63 @@ class OilBreaker(models.Model):
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
     #need to add the rest of the fields
     
     def __str__(self):
         return self.inspection
 
 
-class VacRecloser(models.Model):
+class VacRecloserSinglePhase(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     inspection = models.ForeignKey(
         Inspection,
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
     surgeArrestors = models.CharField(max_length=25, null=True)
     counter = models.IntegerField(null=True)
+    bushings = models.CharField(max_length=25, null=True)
+    connectionsGoodCond = models.BooleanField(null=True)
+    tankGoodCond = models.BooleanField(null=True)
+    oilLeaks = models.BooleanField(null=True)
+    animalProtectGoodCond = models.BooleanField(null=True)
+    potheadGoodCond = models.BooleanField(null=True)
+    overallEquipCond = models.CharField(max_length=50, null=True)
+    comment = models.CharField(max_length=255, null=True)
+    
+    def __str__(self):
+        return self.inspection
+    
+    
+class VacRecloserTriplePhase(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    inspection = models.ForeignKey(
+        Inspection,
+        verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
+    surgeArrestors = models.CharField(max_length=25, null=True)
+    countera = models.IntegerField(null=True)
+    counterb = models.IntegerField(null=True)
+    counterc = models.IntegerField(null=True)
     bushings = models.CharField(max_length=25, null=True)
     connectionsGoodCond = models.BooleanField(null=True)
     tankGoodCond = models.BooleanField(null=True)
@@ -413,6 +486,12 @@ class Yard(models.Model):
     inspection = models.ForeignKey(
         Inspection,
         verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
         on_delete=models.CASCADE
     )
     weather = models.CharField(max_length=25, null=True)
@@ -447,6 +526,12 @@ class SF6Breaker(models.Model):
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
     counter = models.IntegerField(null=True)
     operatorGoodCond = models.BooleanField(null=True)
     controlCabGoodCond = models.BooleanField(null=True)
@@ -469,6 +554,13 @@ class Station(models.Model):
         Inspection,
         verbose_name=('Inspection'),
         related_name=('InspectionId'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        related_name=('StationEquipmentId'),
+        null=True,
         on_delete=models.CASCADE
     )
     conductorGoodCond = models.BooleanField(null=True)
@@ -496,6 +588,12 @@ class CapacitorBank(models.Model):
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
     freeBulgedCans = models.BooleanField(null=True)
     signsPerimeter = models.BooleanField(null=True)
     pdPtCtGoodCond = models.BooleanField(null=True)
@@ -515,6 +613,12 @@ class Transformer(models.Model):
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
     counter = models.IntegerField(null=True)
     didCountRoll = models.BooleanField(null=True)
     lowerDrag = models.CharField(max_length=3, null=True)
@@ -528,7 +632,7 @@ class Transformer(models.Model):
     n2BottlePress = models.IntegerField(null=True)
     n2SysGoodCond = models.BooleanField(null=True)
     ltcOilLevel = models.CharField(max_length=25, null=True)
-    dessocantColor = models.CharField(max_length=25, null=True)
+    dessicantColor = models.CharField(max_length=25, null=True)
     hvBushCond = models.CharField(max_length=25, null=True)
     lvBushCond = models.CharField(max_length=25, null=True)
     surgeArrestorCond = models.CharField(max_length=25, null=True)
@@ -558,6 +662,12 @@ class VacBreakerOutdoor(models.Model):
         verbose_name=('Inspection'),
         on_delete=models.CASCADE
     )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
     counter = models.IntegerField(null=True)
     operatorGoodCond = models.BooleanField(null=True)
     controlCabGoodCond = models.BooleanField(null=True)
@@ -582,6 +692,12 @@ class MotorOperatedLoadBreak(models.Model):
     inspection = models.ForeignKey(
         Inspection,
         verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
         on_delete=models.CASCADE
     )
     loadBreaksGoodCond = models.BooleanField(null=True)
