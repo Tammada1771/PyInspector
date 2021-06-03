@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from .serializers import AlertSerializer, BatteryInspectionSerializer, BatterySerializer, BuildingSerializer, CapacitorBankSerializer, ChargerSerializer, EquipmentSerializer, EquipmentTypeSerializer, InspectionSerializer, InspectionTypeSerializer, LocationSerializer, MotorOperatedLoadBreakSerializer, MxOrderSerializer, MxOrderTypeSerializer, OilBreakerSerializer, SF6BreakerSerializer, StationSerializer, StationsSerializer, StatusSerializer, TransformerSerializer, VacBreakerIndoorSerializer, VacBreakerOutdoorSerializer, VacRecloserSinglePhaseSerializer, VacRecloserTriplePhaseSerializer, WorkGroupSerializer, JobTitleSerializer, UserSerializer, RegionSerializer, SizeSerializer, YardSerializer
+from .serializers import AlertSerializer, BatteryInspectionSerializer, BatterySerializer, BuildingSerializer, CapacitorBankSerializer, ChargerSerializer, CircuitSwitcherSerializer, CompanySerializer, EmployeeTypeSerializer, EquipmentSerializer, EquipmentTypeSerializer, InspectionSerializer, InspectionTypeSerializer, LocationSerializer, MotorOperatedLoadBreakSerializer, MxOrderSerializer, MxOrderTypeSerializer, OilBreakerSerializer, SF6BreakerSerializer, StationSerializer, StationsSerializer, StatusSerializer, TransformerSerializer, VacBreakerIndoorSerializer, VacBreakerOutdoorSerializer, VacRecloserSinglePhaseSerializer, VacRecloserTriplePhaseSerializer, WorkGroupSerializer, JobTitleSerializer, UserSerializer, RegionSerializer, SizeSerializer, YardSerializer
 
-from .models import Alert, Battery, BatteryInspection, Building, CapacitorBank, Charger, Equipment, EquipmentType, Inspection, InspectionType, Location, MotorOperatedLoadBreak, MxOrder, MxOrderType, OilBreaker, SF6Breaker, Station, Stations, Status, Transformer, VacBreakerIndoor, VacBreakerOutdoor, VacRecloserSinglePhase, VacRecloserTriplePhase, WorkGroup, JobTitle, User, Region, Size, Yard
+from .models import Alert, Battery, BatteryInspection, Building, CapacitorBank, Charger, CircuitSwitcher, Company, EmployeeType, Equipment, EquipmentType, Inspection, InspectionType, Location, MotorOperatedLoadBreak, MxOrder, MxOrderType, OilBreaker, SF6Breaker, Station, Stations, Status, Transformer, VacBreakerIndoor, VacBreakerOutdoor, VacRecloserSinglePhase, VacRecloserTriplePhase, WorkGroup, JobTitle, User, Region, Size, Yard
 
 
 # Create your views here.
@@ -107,12 +107,7 @@ class ChargerViewSet(viewsets.ModelViewSet):
 class VacBreakerIndoorViewSet(viewsets.ModelViewSet):
     queryset = VacBreakerIndoor.objects.all().order_by('inspection')
     serializer_class = VacBreakerIndoorSerializer
-    
-    
-class OilBreakerViewSet(viewsets.ModelViewSet):
-    queryset = OilBreaker.objects.all().order_by('inspection')
-    serializer_class = OilBreakerSerializer
-    
+       
     
 class VacRecloserSinglePhaseViewSet(viewsets.ModelViewSet):
     queryset = VacRecloserSinglePhase.objects.all().order_by('inspection')
@@ -152,3 +147,28 @@ class VacBreakerOutdoorViewSet(viewsets.ModelViewSet):
 class MotorOperatedLoadBreakViewSet(viewsets.ModelViewSet):
     queryset = MotorOperatedLoadBreak.objects.all().order_by('inspection')
     serializer_class = MotorOperatedLoadBreakSerializer
+    
+    
+class TransformerViewSet(viewsets.ModelViewSet):
+    queryset = Transformer.objects.all().order_by('inspection')
+    serializer_class = TransformerSerializer
+    
+    
+class OilBreakerViewSet(viewsets.ModelViewSet):
+    queryset = OilBreaker.objects.all().order_by('inspection')
+    serializer_class = OilBreakerSerializer
+    
+
+class EmployeeTypeViewSet(viewsets.ModelViewSet):
+    queryset = EmployeeType.objects.all().order_by('name')
+    serializer_class = EmployeeTypeSerializer
+    
+    
+class CompanyViewSet(viewsets.ModelViewSet):
+    queryset = Company.objects.all().order_by('name')
+    serializer_class = CompanySerializer
+    
+    
+class CircuitSwitcherViewSet(viewsets.ModelViewSet):
+    queryset = CircuitSwitcher.objects.all().order_by('inspection')
+    serializer_class = CircuitSwitcherSerializer

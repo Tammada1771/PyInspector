@@ -44,12 +44,24 @@ class JobTitle(models.Model):
         return self.name
 
 
+class EmployeeType(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name
+    
+
 #used to store all the information for a user    
 class User(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     employeeId = models.CharField(max_length=10)
     password = models.CharField(max_length=50)
-    employeeType = models.IntegerField()
+    employeeType = models.ForeignKey(
+        EmployeeType,
+        verbose_name=("EmployeeType"),
+        on_delete=models.CASCADE
+    )
     email = models.CharField(max_length=50)
     cellphone = models.CharField(max_length=10)
     workphone = models.CharField(max_length=10)
@@ -85,7 +97,14 @@ class Size(models.Model):
     
     def __str__(self):
         return self.name
-        
+
+
+class Company(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name    
 
 #used to store all the stations    
 class Stations(models.Model):
@@ -97,7 +116,11 @@ class Stations(models.Model):
         on_delete=models.CASCADE
     )
     numInspections = models.IntegerField()
-    company = models.CharField(max_length=50)
+    company = models.ForeignKey(
+        Company,
+        verbose_name=('Company'),
+        on_delete=models.CASCADE
+    )
     size = models.ForeignKey(
         Size,
         verbose_name=('Size'),
@@ -403,25 +426,6 @@ class VacBreakerIndoor(models.Model):
     def __str__(self):
         return self.inspection
     
-    
-class OilBreaker(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    inspection = models.ForeignKey(
-        Inspection,
-        verbose_name=('Inspection'),
-        on_delete=models.CASCADE
-    )
-    equipment = models.ForeignKey(
-        Equipment,
-        verbose_name=('Equipment'),
-        null=True,
-        on_delete=models.CASCADE
-    )
-    #need to add the rest of the fields
-    
-    def __str__(self):
-        return self.inspection
-
 
 class VacRecloserSinglePhase(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -709,6 +713,66 @@ class MotorOperatedLoadBreak(models.Model):
     counter = models.IntegerField(null=True)
     opsSinceLastIns = models.IntegerField(null=True)
     countRoll = models.BooleanField(null=True)
+    comment = models.CharField(max_length=255, null=True)
+    
+    def __str__(self):
+        return self.inspection
+    
+    
+class CircuitSwitcher(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    inspection = models.ForeignKey(
+        Inspection,
+        verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
+    counter = models.IntegerField(null=True)
+    operatorGoodCond = models.BooleanField(null=True)
+    gasPressProperPress = models.BooleanField(null=True)
+    controlCabGoodCond = models.BooleanField(null=True)
+    standGoodCond = models.BooleanField(null=True)
+    interrupterCond = models.CharField(max_length=25, null=True)
+    insulatorFreeLeak = models.BooleanField(null=True)
+    disconnectSwitchGoodCond = models.BooleanField(null=True)
+    equipmentLabelProp = models.BooleanField(null=True)
+    overallEquipCond = models.CharField(max_length=25, null=True)
+    foundationGoodCond = models.BooleanField(null=True)
+    paintCond = models.CharField(max_length=50, null=True)
+    comment = models.CharField(max_length=255, null=True)
+    
+    def __str__(self):
+        return self.inspection
+    
+    
+class OilBreaker(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    inspection = models.ForeignKey(
+        Inspection,
+        verbose_name=('Inspection'),
+        on_delete=models.CASCADE
+    )
+    equipment = models.ForeignKey(
+        Equipment,
+        verbose_name=('Equipment'),
+        null=True,
+        on_delete=models.CASCADE
+    )
+    operatorCounter = models.IntegerField(null=True)
+    compressorHours = models.DecimalField(null=True,decimal_places=2, max_digits=6)
+    hydraulicPress = models.IntegerField(null=True)
+    airPress = models.IntegerField(null=True)
+    moistureDrain = models.BooleanField(null=True)
+    tankOilLevel = models.CharField(max_length=25, null=True)
+    bushingOilLevel = models.CharField(max_length=25, null=True)
+    freeOilSheen = models.BooleanField(null=True)
+    oilLeaks = models.CharField(max_length=50, null=True)
+    overallPhysCond = models.CharField(max_length=100, null=True)
     comment = models.CharField(max_length=255, null=True)
     
     def __str__(self):

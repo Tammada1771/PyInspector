@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Alert, Battery, BatteryInspection, Building, CapacitorBank, Charger, Equipment, EquipmentType, Inspection, InspectionType, Location, MotorOperatedLoadBreak, MxOrder, MxOrderType, OilBreaker, SF6Breaker, Stations, Status, Transformer, VacBreakerIndoor, VacBreakerOutdoor, VacRecloserSinglePhase, VacRecloserTriplePhase, WorkGroup, JobTitle, User, Region, Size, Station, Yard
+from .models import Alert, Battery, BatteryInspection, Building, CapacitorBank, Charger, CircuitSwitcher, Company, EmployeeType, Equipment, EquipmentType, Inspection, InspectionType, Location, MotorOperatedLoadBreak, MxOrder, MxOrderType, OilBreaker, SF6Breaker, Stations, Status, Transformer, VacBreakerIndoor, VacBreakerOutdoor, VacRecloserSinglePhase, VacRecloserTriplePhase, WorkGroup, JobTitle, User, Region, Size, Station, Yard
 
 
 
@@ -124,12 +124,6 @@ class VacBreakerIndoorSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'inspection', 'equipment', 'heaterCond', 'counter', 'operatorCharged', 'breakerCubGoodCon', 'overallEquipCond', 'comment')
         
         
-class OilBreakerSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = OilBreaker
-        fields = ('id', 'inspection', 'equipment')
-        
-        
 class VacRecloserSinglePhaseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = VacRecloserSinglePhase
@@ -182,4 +176,29 @@ class MotorOperatedLoadBreakSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MotorOperatedLoadBreak
         fields = ('id', 'inspection', 'equipment', 'loadBreaksGoodCond', 'insulatorCond', 'operatorGoodCond', 'controlCabGoodCond', 'statusCorrectControl', 'groundIntact', 'counter', 'opsSinceLastIns', 'countRoll', 'comment')
-  
+
+
+class OilBreakerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OilBreaker
+        fields = ('id', 'inspection', 'equipment', 'operatorCounter', 'compressorHours', 'hydraulicPress', 'airPress', 'moistureDrain', 'tankOilLevel', 'bushingOilLevel', 'freeOilSheen', 'oilLeaks', 'overallPhysCond', 'comment')
+    
+    
+class EmployeeTypeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = EmployeeType
+        fields = ('id', 'name')
+        
+        
+class CompanySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Company
+        fields = ('id', 'name')
+        
+        
+class CircuitSwitcherSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = CircuitSwitcher
+        fields = ('id', 'name', 'equipment', 'counter', 'operatorGoodCond', 'gasPressProperPress', 'controlCabGoodCond', 'standGoodCond', 'interrupterCond', 'insulatorFreeLeak', 'disconnectSwitchGoodCond', 'equipmentLabelProp', 'overallEquipCond', 'foundationGoodCond', 'paintCond', 'comment')
+        
+        
