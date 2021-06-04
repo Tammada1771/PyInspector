@@ -4,6 +4,7 @@ import uuid
 from django.db import models
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
+from django.db.models.expressions import Value
 from django.db.models.fields import IntegerField
 from django.db.models.fields.related import ForeignKey
 
@@ -146,7 +147,7 @@ class Inspection(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     startdate = models.DateTimeField()
     enddate = models.DateTimeField()
-    duration = models.DateTimeField(null=True)
+    duration = models.IntegerField(null=True)
     station = models.ForeignKey(
         Stations,
         verbose_name=('Station'),
@@ -160,7 +161,7 @@ class Inspection(models.Model):
     )
     
     def __str__(self):
-        return self.startdate
+        return str(self.id)
     
 
 #used to set the status of a alert or mxorder, ie unaknowledged aknowledged inprocess   
@@ -190,9 +191,9 @@ class Equipment(models.Model):
         on_delete=models.CASCADE
     )
     equipmentClass = models.CharField(max_length=50)
-    manufacturer = models.CharField(max_length=50)
-    model = models.CharField(max_length=50)
-    serialNumber = models.CharField(max_length=50)
+    manufacturer = models.CharField(max_length=50, null=True)
+    model = models.CharField(max_length=50, null=True)
+    serialNumber = models.CharField(max_length=50, null=True)
     equipmentNumber = models.CharField(max_length=75)
     station = models.ForeignKey(
         Stations,
@@ -200,7 +201,7 @@ class Equipment(models.Model):
         related_name=('StationId'),
         on_delete=models.CASCADE
     )
-    voltage = models.CharField(max_length=7)
+    voltage = models.CharField(max_length=8, null=True)
     equipmentPosition = models.IntegerField(null=True)
     region = models.ForeignKey(
         Region,
