@@ -73,7 +73,7 @@ class EquipmentTypeSerializer(serializers.HyperlinkedModelSerializer):
 class EquipmentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Equipment
-        fields = ('id', 'equipmentType', 'equipmentClass', 'manufacturer', 'model', 'serialNumber', 'equipmentNumber', 'station', 'voltage', 'equipmentPostion', 'region')
+        fields = ('id', 'equipmentType', 'equipmentClass', 'manufacturer', 'model', 'serialNumber', 'equipmentNumber', 'station', 'voltage', 'equipmentPosition', 'region')
         
         
 class AlertSerializer(serializers.HyperlinkedModelSerializer):
@@ -109,7 +109,7 @@ class BatteryInspectionSerializer(serializers.HyperlinkedModelSerializer):
 class BuildingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Building
-        fields = ('id', 'inspection', 'equipment', 'groundIntact', 'phonelineClear', 'operatingInstrct', 'onelineDia', 'spareFuseQntOk', 'stationInfo', 'acdcPanelGoodCond', 'acdcPanelFlagFree', 'relatPanelGoodCond', 'indicateLightsSvcPanel', 'hvacFanOp', 'toolEquipGoodCond', 'fireExtCharged', 'fireExtTagSign', 'exitLightOp', 'thermSetCool75Heat55', 'siliconWipeStock', 'operatingInstructDate', 'floorCleanGoodCond', 'freeRodent', 'overallEquipCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'groundIntact', 'phonelineClear', 'operatingInstrct', 'onelineDia', 'spareFuseQntOk', 'stationInfo', 'acdcPanelGoodCond', 'acdcPanelFlagFree', 'relayPanelGoodCond', 'indicateLightsSvcPanel', 'hvacFanOp', 'toolEquipGoodCond', 'fireExtCharged', 'fireExtTagSign', 'exitLightOp', 'thermSetCool75Heat55', 'siliconWipeStock', 'operatingInstructDate', 'floorCleanGoodCond', 'freeRodent', 'overallEquipCond', 'comment')
         
         
 class ChargerSerializer(serializers.HyperlinkedModelSerializer):
@@ -121,19 +121,19 @@ class ChargerSerializer(serializers.HyperlinkedModelSerializer):
 class VacBreakerIndoorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = VacBreakerIndoor
-        fields = ('id', 'inspection', 'equipment', 'heaterCond', 'counter', 'operatorCharged', 'breakerCubGoodCon', 'overallEquipCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'heaterCond', 'counter', 'operatorCharged', 'breakerCubGoodCond', 'overallEquipCond', 'comment')
         
         
 class VacRecloserSinglePhaseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = VacRecloserSinglePhase
-        fields = ('id', 'inspection', 'equipment', 'surgerArrestors', 'counter', 'bushings', 'connectionsGoodCond', 'tankGoodCond', 'oilLeaks', 'animalProtectGoodCond', 'potheadGoodCond', 'overallEquipCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'surgeArrestors', 'counter', 'bushings', 'connectionsGoodCond', 'tankGoodCond', 'oilLeaks', 'animalProtectGoodCond', 'potheadGoodCond', 'overallEquipCond', 'comment')
         
         
 class VacRecloserTriplePhaseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = VacRecloserTriplePhase
-        fields = ('id', 'inspection', 'equipment', 'surgerArrestors', 'countera', 'counterb', 'counterc', 'bushings', 'connectionsGoodCond', 'tankGoodCond', 'oilLeaks', 'animalProtectGoodCond', 'potheadGoodCond', 'overallEquipCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'surgeArrestors', 'countera', 'counterb', 'counterc', 'bushings', 'connectionsGoodCond', 'tankGoodCond', 'oilLeaks', 'animalProtectGoodCond', 'potheadGoodCond', 'overallEquipCond', 'comment')
         
         
 class YardSerializer(serializers.HyperlinkedModelSerializer):
@@ -145,7 +145,7 @@ class YardSerializer(serializers.HyperlinkedModelSerializer):
 class SF6BreakerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SF6Breaker
-        fields = ('id', 'inspection', 'equipment', 'counter', 'operatorGoodCond', 'controlCabGoodCond', 'gasPressInLimit', 'gasPress', 'standGoodCond', 'busings', 'connectionsGoodCond', 'overallEquipCond', 'potheadGoodCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'counter', 'operatorGoodCond', 'controlCabGoodCond', 'gasPressInLimit', 'gasPress', 'standGoodCond', 'bushings', 'connectionsGoodCond', 'overallEquipCond', 'potheadGoodCond', 'comment')
         
         
 class StationSerializer(serializers.HyperlinkedModelSerializer):
@@ -157,13 +157,13 @@ class StationSerializer(serializers.HyperlinkedModelSerializer):
 class CapacitorBankSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CapacitorBank
-        fields = ('id', 'inspection', 'equipment', 'freeBulgedCans', 'signsPerimeter', 'pdptctGoodCond', 'fusesIntact', 'surgeArrestors', 'overallEquipCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'freeBulgedCans', 'signsPerimeter', 'pdPtCtGoodCond', 'fusesIntact', 'surgeArrestors', 'overallEquipCond', 'comment')
         
         
 class TransformerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Transformer
-        fields = ('id', 'inspection', 'equipment', 'counter', 'didCountRoll', 'lowerDrag', 'raiseDrag', 'oilLevel', 'currentWindTemp', 'maxWindTemp', 'currentTopTemp', 'maxTopTemp', 'mainTankPres', 'n2BottlePress', 'n2SysGoodCond', 'ltcOilLevel', 'dessicantColor', 'hvBushCond', 'lvBushCond', 'surgeArrestorCond', 'pressReliefNotAct', 'suddenPressValveOpen', 'heatersWorkProp', 'cabClean', 'radiatorGoodCond', 'ltcControlGoodCond', 'ltcDriveGoodCond', 'animalProtectGoodCond', 'oilPumpFanOp', 'oilLeak', 'oilContainFreeWater', 'overallEquipCond', 'pressReliefGoodCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'counter', 'didCountRoll', 'lowerDrag', 'raiseDrag', 'oilLevel', 'currentWindTemp', 'maxWindTemp', 'currentTopTemp', 'maxTopTemp', 'mainTankPress', 'n2BottlePress', 'n2SysGoodCond', 'ltcOilLevel', 'dessicantColor', 'hvBushCond', 'lvBushCond', 'surgeArrestorCond', 'pressReliefNotAct', 'suddenPressValveOpen', 'heatersWorkProp', 'cabClean', 'radiatorGoodCond', 'ltcControlGoodCond', 'ltcDriveGoodCond', 'animalProtectGoodCond', 'oilPumpFanOp', 'oilLeak', 'oilContainFreeWater', 'overallEquipCond', 'pressReliefGoodCond', 'comment')
         
         
 class VacBreakerOutdoorSerializer(serializers.HyperlinkedModelSerializer):
@@ -199,6 +199,6 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 class CircuitSwitcherSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CircuitSwitcher
-        fields = ('id', 'name', 'equipment', 'counter', 'operatorGoodCond', 'gasPressProperPress', 'controlCabGoodCond', 'standGoodCond', 'interrupterCond', 'insulatorFreeLeak', 'disconnectSwitchGoodCond', 'equipmentLabelProp', 'overallEquipCond', 'foundationGoodCond', 'paintCond', 'comment')
+        fields = ('id', 'inspection', 'equipment', 'counter', 'operatorGoodCond', 'gasPressProperPress', 'controlCabGoodCond', 'standGoodCond', 'interrupterCond', 'insulatorFreeLeak', 'disconnectSwitchGoodCond', 'equipmentLabelProp', 'overallEquipCond', 'foundationGoodCond', 'paintCond', 'comment')
         
         
